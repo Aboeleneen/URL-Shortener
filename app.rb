@@ -8,6 +8,7 @@ configure do
   set :bind, '0.0.0.0'
   set :port, 4567
   set :show_exceptions, false
+  set :protection, false
 end
 
 before do
