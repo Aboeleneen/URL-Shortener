@@ -5,7 +5,7 @@ FROM ruby:3.2
 WORKDIR /usr/src/app
 
 # Install gems directly
-RUN gem install sinatra puma rackup
+RUN gem install sinatra puma rackup pg redis sequel
 
 # Copy project files
 COPY . .
