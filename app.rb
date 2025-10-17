@@ -25,6 +25,16 @@ get '/' do
   }.to_json
 end
 
+# Encode a URL to a shortened URL
+# Request:
+# {
+#   "url": "https://example.com/very/long/url"
+# }
+# Response:
+# {
+#   "short_url": "http://your.domain/GeAi9K",
+#   "original_url": "https://example.com/very/long/url"
+# }
 post '/encode' do
   content_type :json
   
@@ -68,6 +78,16 @@ post '/encode' do
   end
 end
 
+# Decode a shortened URL to its original URL
+# Request:
+# {
+#   "short_url": "http://your.domain/GeAi9K"
+# }
+# Response:
+# {
+#   "original_url": "https://example.com/very/long/url",
+#   "short_url": "http://your.domain/GeAi9K"
+# }
 post '/decode' do
   content_type :json
   
