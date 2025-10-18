@@ -1,10 +1,5 @@
 # ShortLink - URL Shortening Service
 
-A URL shortening service built with Ruby and Sinatra for the [Oivan hiring assignment](https://hiring.oivan.vn/assignment/f6fba6c45602a7571357d971156b2426).
-
-**Live Demo**: https://sinatra-url-shortener.fly.dev  
-**GitHub Repository**: [Repository URL]
-
 ## Architecture
 
 - **Sinatra**: Web framework
