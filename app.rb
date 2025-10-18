@@ -102,7 +102,7 @@ post '/decode' do
       return { error: "Short URL is required" }.to_json
     end
     
-    short_code = UrlValidator.extract_short_code(short_url)
+    short_code = UrlValidator.extract_short_code(short_url, request.base_url)
     
     if short_code.nil?
       status 400

@@ -148,12 +148,12 @@ RSpec.describe 'ShortLink API' do
         expect(data['error']).to eq('Short URL not found')
       end
       
-      it 'accepts short URL with different domain' do
+      it 'rejects short URL with different domain' do
         post '/decode', { short_url: 'https://other-domain.com/abc123' }.to_json, 'CONTENT_TYPE' => 'application/json'
         
-        expect(last_response.status).to eq(404) # Not found, but format is valid
+        expect(last_response.status).to eq(400) # Invalid format due to different domain
         data = JSON.parse(last_response.body)
-        expect(data['error']).to eq('Short URL not found')
+        expect(data['error']).to eq('Invalid short URL format')
       end
       
       it 'accepts short URL with path' do
@@ -199,20 +199,20 @@ RSpec.describe 'ShortLink API' do
     end
 
     describe 'edge cases' do
-      it 'handles short URLs with different protocols' do
+      it 'rejects short URLs with different protocols' do
         post '/decode', { short_url: 'https://localhost:4567/abc123' }.to_json, 'CONTENT_TYPE' => 'application/json'
         
-        expect(last_response.status).to eq(404) # Not found, but format is valid
+        expect(last_response.status).to eq(400) # Invalid format due to different protocol
         data = JSON.parse(last_response.body)
-        expect(data['error']).to eq('Short URL not found')
+        expect(data['error']).to eq('Invalid short URL format')
       end
       
-      it 'handles short URLs with port numbers' do
+      it 'rejects short URLs with different port numbers' do
         post '/decode', { short_url: 'http://localhost:3000/abc123' }.to_json, 'CONTENT_TYPE' => 'application/json'
         
-        expect(last_response.status).to eq(404) # Not found, but format is valid
+        expect(last_response.status).to eq(400) # Invalid format due to different port
         data = JSON.parse(last_response.body)
-        expect(data['error']).to eq('Short URL not found')
+        expect(data['error']).to eq('Invalid short URL format')
       end
     end
   end
