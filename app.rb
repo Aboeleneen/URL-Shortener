@@ -6,9 +6,10 @@ require_relative 'utils/init'
 
 configure do
   set :bind, '0.0.0.0'
-  set :port, 4567
+  set :port, ENV['PORT'] || 4567
   set :show_exceptions, false
-  set :protection, false
+  set :environment, :production
+  set :protection, except: :host_authorization
 end
 
 before do

@@ -3,14 +3,20 @@ require 'sequel'
 
 class PostgresClient
   def self.connect
-    @db ||= Sequel.connect(
-      adapter: 'postgres',
-      host: ENV['POSTGRES_HOST'] || 'postgres',
-      port: ENV['POSTGRES_PORT'] || 5432,
-      database: ENV['POSTGRES_DB'] || 'url_shortener',
-      user: ENV['POSTGRES_USER'] || 'postgres',
-      password: ENV['POSTGRES_PASSWORD'] || 'password'
-    )
+    @db ||= if ENV['DATABASE_URL']
+      # Use DATABASE_URL if available (Fly.io standard)
+      Sequel.connect(ENV['DATABASE_URL'])
+    else
+      # Fallback to individual environment variables
+      Sequel.connect(
+        adapter: 'postgres',
+        host: ENV['POSTGRES_HOST'] || 'postgres',
+        port: ENV['POSTGRES_PORT'] || 5432,
+        database: ENV['POSTGRES_DB'] || 'url_shortener',
+        user: ENV['POSTGRES_USER'] || 'postgres',
+        password: ENV['POSTGRES_PASSWORD'] || 'password'
+      )
+    end
   end
 
   def self.setup_tables
