@@ -1,5 +1,10 @@
 # ShortLink - URL Shortening Service
 
+A URL shortening service built with Ruby and Sinatra for the [Oivan hiring assignment](https://hiring.oivan.vn/assignment/f6fba6c45602a7571357d971156b2426).
+
+**Live Demo**: https://sinatra-url-shortener.fly.dev  
+**GitHub Repository**: [Repository URL]
+
 ## Architecture
 
 - **Sinatra**: Web framework
@@ -79,6 +84,13 @@ docker compose exec app ruby run_tests.rb
 - Database unique constraint provides final safety net
 **Conclusion**: No race condition problem given Redis is single-threaded
 
+## Security Analysis
+
+### Security Recommendations
+1. **Better Input Validation**: Enhanced URL validation and sanitization
+2. **Authentication**: Add user authentication for access control
+3. **HTTPS Only**: Ensure all communications use HTTPS in production
+
 ## Scalability
 
 ### Current Capacity
@@ -116,5 +128,3 @@ curl -X POST https://sinatra-url-shortener.fly.dev/decode \
   -H "Content-Type: application/json" \
   -d '{"short_url": "https://sinatra-url-shortener.fly.dev/GeAi9K"}'
 ```
-
-See [FLY_DEPLOYMENT.md](FLY_DEPLOYMENT.md) for deployment instructions.
